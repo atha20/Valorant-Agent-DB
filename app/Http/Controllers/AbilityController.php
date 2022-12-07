@@ -79,7 +79,6 @@ class AbilityController extends Controller
     }
 
     public function abilityRestore($id){
-        // DB::table('pelanggan')->update(['is_deleted' => 0]);
         DB::update('UPDATE ability SET deleted_at = null WHERE AbilityID = :AbilityID', ['AbilityID' => $id]);
         return redirect()->route('abilityRemoved');
     }
@@ -92,11 +91,11 @@ class AbilityController extends Controller
     public function abilitySearch(Request $request) {
         $search = $request->search;
 
-        $datas = DB::table('agentview')
+        $datas = DB::table('abilityview')
         ->where('AbilityID', 'like', "%$search%")
         ->orWhere('AbilityName', 'like', "%$search%")
         ->orWhere('AbilityType', 'like', "%$search%")
-        ->orWhere('AgentID', 'like', "%$search%")
+        ->orWhere('AgentName', 'like', "%$search%")
         ->get();
 
         return view('ability.index')->with('datas', $datas);
